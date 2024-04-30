@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=gogs
+      - POSTGRES_PASSWORD=redhat
+      - POSTGRES_DB=mydb
+    ports:
+      - "5432:5432"
+
+  gogs:
+    image: gogs/gogs
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_USER=gogs
+      - DATABASE_PASSWORD=redhat
+      - DATABASE_NAME=mydb
+      - DATABASE_HOST=postgres:5432
+    ports:
+      - "3000:3000"
+
